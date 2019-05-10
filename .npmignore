@@ -1,0 +1,13 @@
+.editorconfig
+.gitignore
+.nyc_output/
+.nycrc
+coverage/
+lib/
+node_modules/
+shippable.yml
+test/
+tsconfig.*
+tslint.json
+yarn-error.log
+yarn.lock
