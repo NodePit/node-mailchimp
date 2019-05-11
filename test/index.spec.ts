@@ -65,10 +65,10 @@ describe('Mailchimp', () => {
       return mailchimp
         .createMember('myList', 'test@test.de')
         .catch((err) => {
-          expect(err).to.match(/Mailchimp Error: 400/);
+          expect(err).to.be.ok();
+          expect(err.status).to.be(400);
           expectation.done();
         });
-
     });
 
   });

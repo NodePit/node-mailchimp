@@ -70,7 +70,7 @@ export class Mailchimp {
         .set('Authorization', 'Basic ' + this.authToken)
         .send(body)
         .end((err, res) => {
-          if (err) reject(`Mailchimp Error: ${res.status}`);
+          if (err) reject(err);
           resolve(res.body || {});
         });
     });
