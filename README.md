@@ -22,12 +22,13 @@ $ yarn add @nodepit/mailchimp
 import { Mailchimp } from '@nodepit/mailchimp';
 
 const yourApiKey = 'Your Mailchimp API key';
-const yourListId= '123456789';
+const yourListId = 'Your Mailchimp list id';
 
 const mailChimp = new Mailchimp(yourApiKey);
 await mailChimp.createMember(yourListId, 'mail@example.com', {
   status: MemberStatus.SUBSCRIBED,
-  merge_fields: { LNAME: 'Daniel' }
+  merge_fields: { FNAME: 'Daniel' },
+  // further parameters
 });
 ```
 
