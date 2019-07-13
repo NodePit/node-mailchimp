@@ -8,13 +8,11 @@ The [Mailchimp API](http://apidocs.mailchimp.com) allows you to sync email activ
 
 This Node.js library provides a simple wrapper implementation for the [Mailchimp API](http://apidocs.mailchimp.com) that currently supports basic functionality around creating, editing and deleting members.
 
-
 ## Installation
 
 ```shell
 $ yarn add @nodepit/mailchimp
 ```
-
 
 ## Usage
 
@@ -28,10 +26,9 @@ const mailChimp = new Mailchimp(yourApiKey);
 await mailChimp.createMember(yourListId, 'mail@example.com', {
   status: MemberStatus.SUBSCRIBED,
   merge_fields: { FNAME: 'Daniel' },
-  // further parameters
+  // more parameters
 });
 ```
-
 
 ## Development
 
@@ -39,8 +36,7 @@ Install NPM dependencies with `yarn`.
 
 To execute the tests, run the `test` task.
 
-For the best development experience, make sure that your editor supports [TSLint](https://palantir.github.io/tslint/usage/third-party-tools/) and [EditorConfig](http://editorconfig.org).
-
+For the best development experience, make sure that your editor supports [TSLint](https://palantir.github.io/tslint/usage/third-party-tools/), [markdownlint](https://github.com/DavidAnson/markdownlint) and [EditorConfig](http://editorconfig.org).
 
 ## Releasing to NPM
 
@@ -53,7 +49,6 @@ $ npm publish --access public
 ```
 
 … where `<update_type>` is one of `patch`, `minor`, or `major`. This will update the `package.json`, and create a tagged Git commit with the version number.
-
 
 ## Contributing
 
