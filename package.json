@@ -17,6 +17,7 @@
     "@types/expect.js": "^0.3.29",
     "@types/mocha": "^5.2.7",
     "@types/nock": "^10.0.3",
+    "@types/node": "^6.9.0",
     "@types/superagent": "^4.1.3",
     "expect.js": "^0.3.1",
     "markdownlint": "^0.15.0",
@@ -33,7 +34,6 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "crypto": "^1.0.1",
     "superagent": "^5.1.0"
   },
   "directories": {
@@ -52,5 +52,8 @@
     "url": "https://github.com/NodePit/node-mailchimp/issues"
   },
   "homepage": "https://github.com/NodePit/node-mailchimp",
-  "description": "Node.js client for managing Mailchimp subscriptions"
+  "description": "Node.js client for managing Mailchimp subscriptions",
+  "engines": {
+    "node": ">= 6.9.0"
+  }
 }
