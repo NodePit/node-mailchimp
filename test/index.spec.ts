@@ -1,4 +1,3 @@
-import expect = require('expect.js');
 import * as nock from 'nock';
 import { Mailchimp } from '../lib/index';
 
@@ -8,17 +7,17 @@ describe('Mailchimp', () => {
 
     it('with an api key with included data center', () => {
       const mailChimp = new Mailchimp('mySecretApiKey-us19');
-      expect(mailChimp).to.be.an('object');
+      expect(mailChimp).toBeInstanceOf(Object);
     });
 
     it('with an api key and data center', () => {
       const mailChimp = new Mailchimp('mySecretApiKey', 'us-19');
-      expect(mailChimp).to.be.an('object');
+      expect(mailChimp).toBeInstanceOf(Object);
     });
 
     it('fails when data center is not provided and can not be extracted', () => {
       const fcn = () => new Mailchimp('mySecretApiKey');
-      expect(fcn).to.throwError();
+      expect(fcn).toThrowError();
     });
 
   });
@@ -52,7 +51,7 @@ describe('Mailchimp', () => {
       return mailchimp
         .createMember('myList', 'test@test.de')
         .then((res) => {
-          expect(res).to.be.eql(resultBody);
+          expect(res).toEqual(resultBody);
           expectation.done();
         });
     });
@@ -65,8 +64,8 @@ describe('Mailchimp', () => {
       return mailchimp
         .createMember('myList', 'test@test.de')
         .catch((err) => {
-          expect(err).to.be.ok();
-          expect(err.status).to.be(400);
+          expect(err).toBeInstanceOf(Error);
+          expect(err.status).toEqual(400);
           expectation.done();
         });
     });

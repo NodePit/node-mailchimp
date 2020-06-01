@@ -1,5 +1,5 @@
-.nyc_output/
 coverage/
 dist/
+junit.xml
 node_modules/
 yarn-error.log

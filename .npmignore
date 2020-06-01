@@ -1,8 +1,8 @@
 .editorconfig
 .gitignore
-.nyc_output/
-.nycrc
 coverage/
+jest.config.js
+junit.xml
 lib/
 node_modules/
 shippable.yml
