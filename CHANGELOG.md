@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Require at least NodeJS 10
 - Update tool chain (Jest, ESLint, Prettier)
 
 ## [1.0.4] – 2020-03-12

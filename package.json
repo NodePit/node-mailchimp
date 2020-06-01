@@ -54,6 +54,6 @@
   "homepage": "https://github.com/NodePit/node-mailchimp",
   "description": "Node.js client for managing Mailchimp subscriptions",
   "engines": {
-    "node": ">= 6.9.0"
+    "node": ">=10"
   }
 }
