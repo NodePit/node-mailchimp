@@ -16,11 +16,10 @@ export enum MemberStatus {
 }
 
 export class Mailchimp {
-
   private authToken: string;
   private baseUrl: string;
 
-  constructor (apiKey: string, dataCenter?: string) {
+  constructor(apiKey: string, dataCenter?: string) {
     if (!apiKey) throw new Error('Mailchimp API key required');
     dataCenter = dataCenter || Mailchimp.getDataCenter(apiKey);
     if (!dataCenter) throw new Error('Mailchimp data center required');
@@ -28,18 +27,18 @@ export class Mailchimp {
     this.baseUrl = `https://${dataCenter}.api.mailchimp.com/3.0`;
   }
 
-  private static getDataCenter (apiKey: string): string | undefined {
+  private static getDataCenter(apiKey: string): string | undefined {
     const dc = apiKey.substring(apiKey.indexOf('-') + 1);
-    return (dc !== apiKey) ? dc : undefined;
+    return dc !== apiKey ? dc : undefined;
   }
 
-  private static getEmailHash (email: string): string {
+  private static getEmailHash(email: string): string {
     return crypto.createHash('md5').update(email).digest('hex');
   }
 
-  createMember (listId: string, email: string, details?: MemberDetails): Promise<any> {
+  createMember(listId: string, email: string, details?: MemberDetails): Promise<any> {
     const path = `/lists/${listId}/members`;
-    const body = {
+    const body: MemberDetails = {
       email_address: email,
       status: MemberStatus.SUBSCRIBED,
       ...details
@@ -47,23 +46,23 @@ export class Mailchimp {
     return this.sendRequest('POST', path, body);
   }
 
-  editMember (listId: string, email: string, details?: MemberDetails): Promise<any> {
+  editMember(listId: string, email: string, details?: MemberDetails): Promise<any> {
     const emailHash = Mailchimp.getEmailHash(email);
     const path = `/lists/${listId}/members/${emailHash}`;
-    const body = {
+    const body: MemberDetails = {
       email_address: email,
       ...details
     };
     return this.sendRequest('PATCH', path, body);
   }
 
-  deleteMember (listId: string, email: string): Promise<any> {
+  deleteMember(listId: string, email: string): Promise<any> {
     const emailHash = Mailchimp.getEmailHash(email);
     const path = `/lists/${listId}/members/${emailHash}`;
     return this.sendRequest('DELETE', path);
   }
 
-  private sendRequest (method: string, path: string, body?: any): Promise<any> {
+  private sendRequest(method: string, path: string, body?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       request(method, `${this.baseUrl}${path}`)
         .set('Content-Type', 'application/json;charset=utf-8')
@@ -75,5 +74,4 @@ export class Mailchimp {
         });
     });
   }
-
 }

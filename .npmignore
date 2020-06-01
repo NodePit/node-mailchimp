@@ -1,5 +1,7 @@
 .editorconfig
+.eslintrc.js
 .gitignore
+.prettierrc.js
 coverage/
 jest.config.js
 junit.xml
@@ -8,6 +10,5 @@ node_modules/
 shippable.yml
 test/
 tsconfig.*
-tslint.json
 yarn-error.log
 yarn.lock
