@@ -1,5 +1,5 @@
 import * as crypto from 'crypto';
-import * as request from 'superagent';
+import request from 'superagent';
 
 export interface MemberDetails {
   email_address?: string;
