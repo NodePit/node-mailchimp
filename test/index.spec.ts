@@ -1,26 +1,27 @@
-import expect = require('expect.js');
-import * as nock from 'nock';
+import nock from 'nock';
 import { Mailchimp } from '../lib/index';
 
 describe('Mailchimp', () => {
-
-  describe('is initialized', () => {
-
-    it('with an api key with included data center', () => {
+  describe('initialization', () => {
+    it('can be initialized with api key with included data center', () => {
       const mailChimp = new Mailchimp('mySecretApiKey-us19');
-      expect(mailChimp).to.be.an('object');
+      expect(mailChimp).toBeInstanceOf(Object);
     });
 
-    it('with an api key and data center', () => {
+    it('can be initialized with api key and data center', () => {
       const mailChimp = new Mailchimp('mySecretApiKey', 'us-19');
-      expect(mailChimp).to.be.an('object');
+      expect(mailChimp).toBeInstanceOf(Object);
+    });
+
+    it('fails when no api key is provided', () => {
+      const fn = (): Mailchimp => new Mailchimp('');
+      expect(fn).toThrowError();
     });
 
     it('fails when data center is not provided and can not be extracted', () => {
-      const fcn = () => new Mailchimp('mySecretApiKey');
-      expect(fcn).to.throwError();
+      const fn = (): Mailchimp => new Mailchimp('mySecretApiKey');
+      expect(fn).toThrowError();
     });
-
   });
 
   describe('uses api', () => {
@@ -33,44 +34,79 @@ describe('Mailchimp', () => {
       mailchimp = new Mailchimp(auth.pass);
     });
 
-    it('sends basic auth headers', () => {
-      const expectation = api
-        .post('/lists/myList/members')
-        .basicAuth(auth)
-        .reply(200);
-      return mailchimp
-        .createMember('myList', 'test@test.de')
-        .then(() => expectation.done());
-    });
+    describe('creates members', () => {
+      it('sends basic auth headers', () => {
+        const expectation = api.post('/lists/myList/members').basicAuth(auth).reply(200);
+        return mailchimp.createMember('myList', 'test@test.de').then(() => expectation.done());
+      });
 
-    it('resolved with response body', () => {
-      const resultBody = { message: 'Body' };
-      const expectation = api
-        .post('/lists/myList/members')
-        .basicAuth(auth)
-        .reply(200, resultBody);
-      return mailchimp
-        .createMember('myList', 'test@test.de')
-        .then((res) => {
-          expect(res).to.be.eql(resultBody);
+      it('resolves with response body', () => {
+        const resultBody = { message: 'Body' };
+        const expectation = api.post('/lists/myList/members').basicAuth(auth).reply(200, resultBody);
+        return mailchimp.createMember('myList', 'test@test.de').then(res => {
+          expect(res).toEqual(resultBody);
           expectation.done();
         });
-    });
+      });
 
-    it('rejects with error message', () => {
-      const expectation = api
-        .post('/lists/myList/members')
-        .basicAuth(auth)
-        .reply(400);
-      return mailchimp
-        .createMember('myList', 'test@test.de')
-        .catch((err) => {
-          expect(err).to.be.ok();
-          expect(err.status).to.be(400);
+      it('rejects with error message', () => {
+        const expectation = api.post('/lists/myList/members').basicAuth(auth).reply(400);
+        return mailchimp.createMember('myList', 'test@test.de').catch(err => {
+          expect(err).toBeInstanceOf(Error);
+          expect(err).toHaveProperty('status', 400);
           expectation.done();
         });
+      });
     });
 
+    describe('edits members', () => {
+      const hash = 'f84d37ce99493155ee296c2b746191d0';
+
+      it('sends basic auth headers', () => {
+        const expectation = api.patch(`/lists/myList/members/${hash}`).basicAuth(auth).reply(200);
+        return mailchimp.editMember('myList', 'test@test.de').then(() => expectation.done());
+      });
+
+      it('resolves with response body', () => {
+        const resultBody = { message: 'Body' };
+        const expectation = api.patch(`/lists/myList/members/${hash}`).basicAuth(auth).reply(200, resultBody);
+        return mailchimp.editMember('myList', 'test@test.de').then(res => {
+          expect(res).toEqual(resultBody);
+          expectation.done();
+        });
+      });
+
+      it('rejects with error message', () => {
+        const expectation = api.patch(`/lists/myList/members/${hash}`).basicAuth(auth).reply(400);
+        return mailchimp.editMember('myList', 'test@test.de').catch(err => {
+          expect(err).toBeInstanceOf(Error);
+          expect(err).toHaveProperty('status', 400);
+          expectation.done();
+        });
+      });
+    });
+
+    describe('deletes members', () => {
+      const hash = 'f84d37ce99493155ee296c2b746191d0';
+
+      it('sends basic auth headers', () => {
+        const expectation = api.delete(`/lists/myList/members/${hash}`).basicAuth(auth).reply(200);
+        return mailchimp.deleteMember('myList', 'test@test.de').then(() => expectation.done());
+      });
+
+      it('resolves with response body', () => {
+        const expectation = api.delete(`/lists/myList/members/${hash}`).basicAuth(auth).reply(200);
+        return mailchimp.deleteMember('myList', 'test@test.de').then(() => expectation.done());
+      });
+
+      it('rejects with error message', () => {
+        const expectation = api.delete(`/lists/myList/members/${hash}`).basicAuth(auth).reply(400);
+        return mailchimp.deleteMember('myList', 'test@test.de').catch(err => {
+          expect(err).toBeInstanceOf(Error);
+          expect(err).toHaveProperty('status', 400);
+          expectation.done();
+        });
+      });
+    });
   });
-
 });

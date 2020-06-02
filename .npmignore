@@ -1,13 +1,14 @@
 .editorconfig
+.eslintrc.js
 .gitignore
-.nyc_output/
-.nycrc
+.prettierrc.js
 coverage/
+jest.config.js
+junit.xml
 lib/
 node_modules/
 shippable.yml
 test/
 tsconfig.*
-tslint.json
 yarn-error.log
 yarn.lock
