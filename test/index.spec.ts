@@ -67,6 +67,11 @@ describe('Mailchimp', () => {
         return mailchimp.editMember('myList', 'test@test.de').then(() => expectation.done());
       });
 
+      it('lowercases email address and creates proper hash value', () => {
+        const expectation = api.patch(`/lists/myList/members/${hash}`).basicAuth(auth).reply(200);
+        return mailchimp.editMember('myList', 'TEST@test.de').then(() => expectation.done());
+      });
+
       it('resolves with response body', () => {
         const resultBody = { message: 'Body' };
         const expectation = api.patch(`/lists/myList/members/${hash}`).basicAuth(auth).reply(200, resultBody);
@@ -92,6 +97,11 @@ describe('Mailchimp', () => {
       it('sends basic auth headers', () => {
         const expectation = api.delete(`/lists/myList/members/${hash}`).basicAuth(auth).reply(200);
         return mailchimp.deleteMember('myList', 'test@test.de').then(() => expectation.done());
+      });
+
+      it('lowercases email address and creates proper hash value', () => {
+        const expectation = api.delete(`/lists/myList/members/${hash}`).basicAuth(auth).reply(200);
+        return mailchimp.deleteMember('myList', 'TEST@test.de').then(() => expectation.done());
       });
 
       it('resolves with response body', () => {

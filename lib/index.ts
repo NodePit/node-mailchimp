@@ -33,7 +33,7 @@ export class Mailchimp {
   }
 
   private static getEmailHash(email: string): string {
-    return crypto.createHash('md5').update(email).digest('hex');
+    return crypto.createHash('md5').update(email.toLowerCase()).digest('hex');
   }
 
   createMember(listId: string, email: string, details?: MemberDetails): Promise<any> {
