@@ -11,14 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixed an issue that lead to wrong request hashes for email addresse with upper case letters
+- Fix generation of hashes for email addresses. Now the MD5 hash of the lowercase version of the contact's email address is used.
 
 ## [2.0.0] – 2020-06-02
 
 ### Changed
 
-- Require at least NodeJS 10
-- Update tool chain (Jest, ESLint, Prettier)
+- Require at least NodeJS 10.
+- Update tool chain (Jest, ESLint, Prettier).
 
 ## [1.0.4] – 2020-03-12
 
