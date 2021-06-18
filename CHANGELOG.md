@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `getMembers` to get members of a list.
+
 ## [2.0.1] – 2020-06-19
 
 ### Fixed
