@@ -16,6 +16,11 @@ export enum MemberStatus {
   PENDING = 'pending'
 }
 
+export type PagingParams = {
+  count?: number;
+  offset?: number;
+};
+
 export class Mailchimp {
   private authToken: string;
   private baseUrl: string;
@@ -64,10 +69,16 @@ export class Mailchimp {
   }
 
   /** https://mailchimp.com/developer/marketing/api/list-members/list-members-info/ */
-  getMembers(listId: string, options: { count?: number; offset?: number } = {}): Promise<any> {
+  getMembers(listId: string, options: PagingParams = {}): Promise<any> {
     const query = queystring.stringify(options);
     const path = `/lists/${listId}/members?${query}`;
     return this.sendRequest('GET', path);
+  }
+
+  /** https://mailchimp.com/developer/marketing/api/lists/get-lists-info/ */
+  getLists(options: PagingParams = {}): Promise<any> {
+    const query = queystring.stringify(options);
+    return this.sendRequest('GET', `/lists?${query}`);
   }
 
   private sendRequest(method: string, path: string, body?: any): Promise<any> {
