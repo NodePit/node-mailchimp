@@ -1,5 +1,6 @@
 import * as crypto from 'crypto';
 import request from 'superagent';
+import querystring from 'querystring';
 
 export interface MemberDetails {
   email_address?: string;
@@ -14,6 +15,11 @@ export enum MemberStatus {
   CLEANED = 'cleaned',
   PENDING = 'pending'
 }
+
+export type PagingParams = {
+  count?: number;
+  offset?: number;
+};
 
 export class Mailchimp {
   private authToken: string;
@@ -60,6 +66,19 @@ export class Mailchimp {
     const emailHash = Mailchimp.getEmailHash(email);
     const path = `/lists/${listId}/members/${emailHash}`;
     return this.sendRequest('DELETE', path);
+  }
+
+  /** https://mailchimp.com/developer/marketing/api/list-members/list-members-info/ */
+  getMembers(listId: string, options: PagingParams = {}): Promise<any> {
+    const query = querystring.stringify(options);
+    const path = `/lists/${listId}/members?${query}`;
+    return this.sendRequest('GET', path);
+  }
+
+  /** https://mailchimp.com/developer/marketing/api/lists/get-lists-info/ */
+  getLists(options: PagingParams = {}): Promise<any> {
+    const query = querystring.stringify(options);
+    return this.sendRequest('GET', `/lists?${query}`);
   }
 
   private sendRequest(method: string, path: string, body?: any): Promise<any> {
