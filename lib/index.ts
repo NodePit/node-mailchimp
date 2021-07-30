@@ -1,6 +1,6 @@
 import * as crypto from 'crypto';
 import request from 'superagent';
-import queystring from 'querystring';
+import querystring from 'querystring';
 
 export interface MemberDetails {
   email_address?: string;
@@ -70,14 +70,14 @@ export class Mailchimp {
 
   /** https://mailchimp.com/developer/marketing/api/list-members/list-members-info/ */
   getMembers(listId: string, options: PagingParams = {}): Promise<any> {
-    const query = queystring.stringify(options);
+    const query = querystring.stringify(options);
     const path = `/lists/${listId}/members?${query}`;
     return this.sendRequest('GET', path);
   }
 
   /** https://mailchimp.com/developer/marketing/api/lists/get-lists-info/ */
   getLists(options: PagingParams = {}): Promise<any> {
-    const query = queystring.stringify(options);
+    const query = querystring.stringify(options);
     return this.sendRequest('GET', `/lists?${query}`);
   }
 
