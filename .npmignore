@@ -2,6 +2,7 @@
 .eslintrc.js
 .github/
 .gitignore
+.markdownlint.yml
 .prettierrc.js
 coverage/
 jest.config.js
