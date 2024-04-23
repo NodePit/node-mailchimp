@@ -4,6 +4,10 @@
 [![Coverage Badge](https://api.shippable.com/projects/5cd6aee6b875100006629f27/coverageBadge?branch=master)]()
 [![npm version](https://badge.fury.io/js/%40nodepit%2Fmailchimp.svg)](https://badge.fury.io/js/%40nodepit%2Fmailchimp)
 
+## ⚠️ Deprecation note
+
+We no longer use Mailchimp, and so we will no longer maintain this module.
+
 The [Mailchimp API](http://apidocs.mailchimp.com) allows you to sync email activity and campaign stats with your database, manage lists/audiences, view and control automation workflows, and test calls and endpoints before pushing to production.
 
 This Node.js library provides a simple wrapper implementation for the [Mailchimp API](http://apidocs.mailchimp.com) that currently supports basic functionality around creating, editing and deleting members.
