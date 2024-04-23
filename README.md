@@ -1,7 +1,5 @@
 # Mailchimp Node.js Library
 
-[![Run Status](https://api.shippable.com/projects/5cd6aee6b875100006629f27/badge?branch=master)]()
-[![Coverage Badge](https://api.shippable.com/projects/5cd6aee6b875100006629f27/coverageBadge?branch=master)]()
 [![npm version](https://badge.fury.io/js/%40nodepit%2Fmailchimp.svg)](https://badge.fury.io/js/%40nodepit%2Fmailchimp)
 
 ## ⚠️ Deprecation note
